@@ -1,0 +1,26 @@
+/*
+  shopkeep onsite 1st exam
+  [3,1,6,8,3,9,12,5], 20 => 8,12
+*/
+
+console.log(ch([3,1,6,8,9,12,5,20,10], 30));
+
+function ch(arr, total){
+  
+  var ob = {};
+  var temp;
+  var tempp;
+  var rs =[];
+  for(var i=0; i<arr.length; i++){
+    temp = total - arr[i];
+    for(var j=i+1; j<arr.length; j++){
+      tempp = temp - arr[j];
+      ob[tempp] = 1;
+      if(ob[arr[j]]){
+        rs.push([arr[i], arr[j], tempp])
+      }
+    }
+    ob = {};
+  }
+  return rs
+}

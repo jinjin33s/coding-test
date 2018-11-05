@@ -1,0 +1,18 @@
+function num_of_delivery(numDestinations, allLocations, numDeliveries) {
+  let temp = [];
+
+  for (let i = 0; i < allLocations.length; i++) {
+
+    const val = Math.sqrt(Math.pow(allLocations[i][0], 2) + Math.pow(allLocations[i][1], 2));
+    let obj = { val: val, index: i };
+    temp.push(obj);
+  }
+  return temp.sort((a, b) => a.val - b.val).slice(0, numDeliveries).map(obj => allLocations[obj.index])
+}
+
+function num_of_delivery(numDestinations, allLocations, numDeliveries) {
+  const val = (arr) => Math.sqrt(Math.pow(arr[0], 2) + Math.pow(arr[1], 2))
+  return allLocations.sort((a, b) => val(a) - val(b)).slice(0, numDeliveries)
+}
+console.log(num_of_delivery(3, [[1, 2], [3, 4], [1, -1]], 2));
+//[ [1,-1] [1,2]] 

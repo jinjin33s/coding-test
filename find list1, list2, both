@@ -1,0 +1,40 @@
+/* KeepShop 1st exam
+
+list1
+1234
+4056
+3021
+
+list2
+7890
+1234
+6688
+
+only in list1: [4056, 3021] 
+only in list2: [7890, 6688] 
+in both lists: [1234] 
+
+*/
+
+check([1234,4056,3021],[7890,1234,6688]);
+
+function check(list1, list2){
+  var ob = {};
+  var arr1=[], arr2=[], both = [];
+  for(var i=0; i<list1.length; i++){
+    ob[list1[i]] = list1[i];
+  }
+  
+  for(var i=0; i<list2.length; i++){
+    if(ob[list2[i]]){
+      both.push(list2[i]);
+      delete ob[list2[i]];
+    }else{
+      arr2.push(list2[i]);
+    }
+  }
+  
+  console.log("only in list1: "+Object.values(ob));
+  console.log("only in list2: "+arr2);
+  console.log("in both list: "+both);
+}

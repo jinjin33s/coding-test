@@ -1,0 +1,48 @@
+// Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+// Output: 7 -> 0 -> 8
+// Explanation: 342 + 465 = 807.
+
+function ch(l1, l2){
+
+  let list1;
+  let list2;
+  let reminder = false;
+  let sum;
+  let result;
+
+  while(l1 || l2){
+    if(!l1){
+      list1 = 0;
+    }else{
+      list1 = l1.val;
+      l1 = l1.next;
+    }
+    if(!l2){
+      list2 = 0;
+    }else{
+      list2 = l2.val;
+      l2 = l2.next;
+    }
+
+    if(reminder){
+      sum = list1 + list2 + 1;
+      reminder = false;
+    }else{
+      sum = list1 + list2;
+    }
+
+    if(sum >= 10){
+      sum = sum - 10;
+      reminder = ture;
+    }
+
+    result.push(sum);
+
+  }
+
+  if(reminder){
+    result.push(1);
+  }
+
+  return result;
+}

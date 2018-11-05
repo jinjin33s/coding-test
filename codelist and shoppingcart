@@ -1,0 +1,47 @@
+console.log(ch1([['apple','apple'],['banana','anything','banana']],
+                  ['apple','apple','banana','orange','banana'])); // 1
+
+console.log(ch1([['apple','apricot'],['banana','anything','guava'],['papaya','anything']]
+               ,['banana','orange','guava','apple','apricot','papaya','kiwi'])); // 0
+
+console.log(ch1([['apple','apple'],['banana','anything','banana']],
+                ['orange', 'apple', 'apple','banana','orange','banana'])) // 1
+
+console.log(ch1([['apple','apple'],['banana','anything','banana']],
+                ['banana', 'orange', 'banana','apple','apple'])) // 0
+
+console.log(ch1([['apple','apple'],['banana','anything','banana']],
+                ['apple','banana','apple','banana','orange','banana'])) // 0
+
+
+function ch1(codeList, shoppingCart){
+  
+  
+  var subList = codeList[0].toString();
+  var strCode = codeList.toString();
+  var strShop = shoppingCart.toString();
+  
+  var num = strShop.indexOf(subList);
+  
+  if(num == -1){
+    return 0;
+  }else if(num != 0){
+    strShop = strShop.slice(num);
+  }
+  
+  var arrCode = strCode.split(",");
+  var arrShop = strShop.split(",");
+  
+  if(arrCode.length > arrShop.length){
+    return 0;
+  }else{
+    for(var i=0; i<arrCode.length; i++){
+      if(arrCode[i] =='anything' || arrCode[i] == arrShop[i]){
+        continue;
+      }else{
+        return 0;
+      }
+    }
+    return 1;
+  }
+}

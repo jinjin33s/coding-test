@@ -1,0 +1,129 @@
+/*
+
+/**
+ * @param {number[][]} forest
+ * @return {number}
+ */
+
+console.log(cutOffTree([
+[1,2,3],
+[0,0,4],
+[7,6,5]]));
+
+console.log(cutOffTree([
+ [1,2,3],
+ [0,0,0],
+ [7,6,5]]));
+
+console.log(cutOffTree([
+ [2,3,4],
+ [0,0,5],
+ [8,7,6]]));
+
+var cutOffTree = function(forest) {
+    var xMax = forest.length - 1;
+    var yMax = forest[0].length - 1;
+    
+    var trees = [];
+    forest.forEach((row) => {
+        row.forEach((el) => {
+            if (el > 1){
+                trees.push(el);
+            }
+        });  
+    });
+    
+    trees = trees.sort((a, b) => a - b);
+    
+    
+    var setForest = function(forest){
+        return forest.map(function(row, r){
+            return row.map(function(el, c){
+                return {val: el, visited: false, x:r, y:c, count: 1};
+            });  
+        });
+    }
+    
+    var isWalkable = function(x, y){
+        return !(
+            x < 0 || x > xMax || y < 0 || y > yMax || myForest[x][y].val == 0
+        );
+    }
+    
+    var getChildren = function(node){
+        var result = [];
+        let x = node.x;
+        let y = node.y;
+        if (isWalkable(x + 1, y)){
+            result.push(myForest[x + 1][y]);
+        }
+        if (isWalkable(x, y + 1)){
+            result.push(myForest[x][y + 1]);
+        }
+        if (isWalkable(x - 1, y)){
+            result.push(myForest[x - 1][y]);
+        }
+        if (isWalkable(x, y - 1)){
+            result.push(myForest[x][y - 1]);
+        }
+        return result;
+    }
+    
+    var currentLocation = [0,0];
+    
+    var getPath = function(myForest, x, y, targetVal){
+        var queue = [];
+        myForest[x][y].visited = true;
+        queue.push(myForest[x][y]);
+        var foundNode = null;
+        
+        while(queue.length > 0){
+            var node = queue.shift();
+            if (node.val == targetVal){
+                foundNode = node;
+            }
+            var children = getChildren(node);
+            
+            for (var i = 0; i < children.length; i++){
+                if (!children[i].visited){
+                    queue.push(children[i]);
+                    children[i].count += node.count;
+                    children[i].visited = true;
+                } 
+            }       
+        }
+        
+        if (foundNode){
+            forest[foundNode.x][foundNode.y] = 1;
+            var paths = getChildren(foundNode).map((option) => {return option.count;});
+            currentLocation = [foundNode.x, foundNode.y];
+            var minPath = Math.min(...paths);
+            return minPath;
+        } else {
+            return -1;
+        }
+    }
+    
+    var currentCount = 0;
+    
+    for (var i = 0; i < trees.length; i++){
+        if (forest[currentLocation[0]][currentLocation[1]] == trees[i]){
+            forest[currentLocation[0]][currentLocation[1]] = 1;
+            continue;
+        }
+        var myForest = setForest(forest);
+        var result = getPath(myForest, currentLocation[0], currentLocation[1], trees[i]);
+        if (result != -1){
+            currentCount += result;
+        } else {
+            return -1;
+        }
+    }
+    
+    return currentCount;
+};
+
+
+
+
+

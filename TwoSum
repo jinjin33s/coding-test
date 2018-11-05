@@ -12,3 +12,19 @@ function twoSum(nums, target) {
     numToIdx[nums[i]] = i;
   }
 }
+
+// not working this. why?
+function ch1(nums, total){
+
+  var numToIdx ={};
+
+  for (var i=0; i<nums[i]; i++){
+    var diff = total - nums[i];
+
+    if(numToIdx[diff]){ // here!!! 
+      return [numToIdx[diff], i];
+    }
+    numToIdx[nums[i]] = i;
+  }
+  return -1;
+}

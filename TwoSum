@@ -9,7 +9,7 @@ function twoSum(nums, target) {
     if (typeof numToIdx[diff] == 'number') {
       return [numToIdx[diff], i];
     }
-    numToIdx[nums[i]] = i;
+    numToIdx[nums[i]] = i; // have to be here. ex) [3,2,5] , 6 
   }
 }
 

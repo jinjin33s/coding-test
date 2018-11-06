@@ -8,10 +8,10 @@ function ch(l1, l2){
   let list2;
   let reminder = false;
   let sum;
-  let result;
+  let result = [];  // have to init for array !!
 
   while(l1 || l2){
-    if(!l1){
+    if(!l1){        // have to !l1 => list1 = 0;
       list1 = 0;
     }else{
       list1 = l1.val;
@@ -26,14 +26,14 @@ function ch(l1, l2){
 
     if(reminder){
       sum = list1 + list2 + 1;
-      reminder = false;
+      reminder = false;   // have to update to false !!
     }else{
       sum = list1 + list2;
     }
 
     if(sum >= 10){
-      sum = sum - 10;
-      reminder = ture;
+      sum = sum - 10;   // have to be sum! not list1 + list2!!!
+      reminder = ture; 
     }
 
     result.push(sum);

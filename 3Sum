@@ -1,0 +1,33 @@
+var threeSum = function(nums) {
+
+  nums.sort((a,b)=>a-b);
+  let rs = [];
+  
+  for(let i=0; i<nums.length-2; i++){
+    if(i == 0 || nums[i]>nums[i-1]) {
+      
+      let start = i + 1;
+      let end = nums.length-1;
+      
+      while(start < end) {
+        
+        if( (nums[i] + nums[start] + nums[end]) == 0 ){
+          rs.push([nums[i], nums[start], nums[end]]);    // use [] !!! 
+        }
+        
+        if( (nums[i] + nums[start] + nums[end]) < 0){
+          let curr = start;
+          while(nums[curr] == nums[start] && start<end){
+              start++;
+            }
+        }else{
+            let curr = end;
+            while(nums[curr] == nums[end] && start<end){
+                end--;
+             }
+         }
+       }
+     }
+   }
+  return rs;
+};

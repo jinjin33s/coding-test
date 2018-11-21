@@ -1,0 +1,53 @@
+function longestPalindrome(s){
+  if(s.length ==0 || s.length==1) return s
+
+  let len = s.length;
+  let table = [];
+
+  // table setting
+  for (let item of s){
+    table.push(new Array(len).fill(false))
+  }
+
+  // if one
+  // abje => a, b, j, e  => palindrome itself so => true
+  let i =0;
+  while(i<len){
+    table[i][i]= true;
+    i++;
+  }
+
+  let result = s[0];
+
+  // if two....
+  i=0
+  while(i<len-1){
+    if(s[i] === s[i+1]){
+      table[i][i+1] = true;
+      result = s.slice(i, i+2);
+    }
+    i++;
+  }
+
+  // if 3,4,5,....
+  let k=3;
+  while(k <= len){
+    i = 0; // fisrt index a
+    while(i <= len-k){
+      let j = i + k - 1; // last index c
+      if(s[i] === s[j] && table[i+1][j-1]){
+        table[i][j] = true;
+        if(k > result.length){
+          result = s.slice(i,j+1);
+        }
+      }
+      i++;
+    }
+    k++;
+  }
+
+  return result;
+  console.log(table)
+}
+
+console.log(longestPalindrome('abcbauyi'));
